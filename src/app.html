@@ -1,0 +1,39 @@
+<template>
+  <h1> Upload demo  ${upmess} </h1>
+  <form submit.delegate="submit(file)">
+    <input type="file" name="file" files.bind="file" multiple>
+    <button type="submit">Send  via code</button>
+   
+  </form>
+
+  <!--<form submit.delegate="submit(file)">
+    <input type="file" name="images" files.bind="images" multiple>
+    <button type="submit">Send  via code</button>
+  </form>-->
+
+
+  <!-- /////////////////////////////////////  -->
+
+  <!--<form class="pure-form pure-form-stacked" action="http://localhost:8880/api/v1/uploadcsv" method="post" enctype="multipart/form-data">-->
+     <!--<form class="pure-form pure-form-stacked" action="http://localhost:3000/attachments" method="post" enctype="multipart/form-data">
+ 
+    <fieldset>
+  
+      <label for="subject">Attachment smethod="post"<label>
+      <input name="file" type="file" placeholder="Password">
+      <button class="pure-button pure-button-primary">Send</button>
+    </fieldset>
+  </form>
+
+
+   <form class="pure-form pure-form-stacked" action="http://localhost:3000/attachments" method="post" enctype="multipart/form-data">
+ 
+    <fieldset>
+  
+      <label for="subject">Attachment smethod="post"<label>
+      <input name="file" type="file" placeholder="Password">
+      <button class="pure-button pure-button-primary">Send</button>
+    </fieldset>
+  </form>-->
+
+</template>
