@@ -36,7 +36,6 @@ define('app',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function 
       console.log(formData, 'formData');
 
       this.http.fetch('upload', {
-
         mode: 'cors',
         method: 'POST',
         body: formData
@@ -54,6 +53,34 @@ define('app',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function 
     return App;
   }()) || _class);
 });
+define('BlobToUrlValueConverter',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var BlobToUrlValueConverter = exports.BlobToUrlValueConverter = function () {
+    function BlobToUrlValueConverter() {
+      _classCallCheck(this, BlobToUrlValueConverter);
+    }
+
+    BlobToUrlValueConverter.prototype.toView = function toView(blob) {
+      return URL.createObjectURL(blob);
+    };
+
+    return BlobToUrlValueConverter;
+  }();
+});
+define('date-format',[], function () {
+  "use strict";
+});
 define('environment',["exports"], function (exports) {
   "use strict";
 
@@ -64,6 +91,38 @@ define('environment',["exports"], function (exports) {
     debug: true,
     testing: true
   };
+});
+define('FileListToArrayValueConverter',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var FileListToArrayValueConverter = exports.FileListToArrayValueConverter = function () {
+    function FileListToArrayValueConverter() {
+      _classCallCheck(this, FileListToArrayValueConverter);
+    }
+
+    FileListToArrayValueConverter.prototype.toView = function toView(fileList) {
+      var files = [];
+      if (!fileList) {
+        return files;
+      }
+      for (var i = 0; i < fileList.length; i++) {
+        files.push(fileList.item(i));
+      }
+      return files;
+    };
+
+    return FileListToArrayValueConverter;
+  }();
 });
 define('main',['exports', './environment'], function (exports, _environment) {
   'use strict';
@@ -112,5 +171,5 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n  <h1> Upload demo  ${upmess} </h1>\r\n  <form submit.delegate=\"submit(file)\">\r\n    <input type=\"file\" name=\"file\" files.bind=\"file\" multiple>\r\n    <button type=\"submit\">Send  via code</button>\r\n   \r\n  </form>\r\n\r\n  <!--<form submit.delegate=\"submit(file)\">\r\n    <input type=\"file\" name=\"images\" files.bind=\"images\" multiple>\r\n    <button type=\"submit\">Send  via code</button>\r\n  </form>-->\r\n\r\n\r\n  <!-- /////////////////////////////////////  -->\r\n\r\n  <!--<form class=\"pure-form pure-form-stacked\" action=\"http://localhost:8880/api/v1/uploadcsv\" method=\"post\" enctype=\"multipart/form-data\">-->\r\n     <!--<form class=\"pure-form pure-form-stacked\" action=\"http://localhost:3000/attachments\" method=\"post\" enctype=\"multipart/form-data\">\r\n \r\n    <fieldset>\r\n  \r\n      <label for=\"subject\">Attachment smethod=\"post\"<label>\r\n      <input name=\"file\" type=\"file\" placeholder=\"Password\">\r\n      <button class=\"pure-button pure-button-primary\">Send</button>\r\n    </fieldset>\r\n  </form>\r\n\r\n\r\n   <form class=\"pure-form pure-form-stacked\" action=\"http://localhost:3000/attachments\" method=\"post\" enctype=\"multipart/form-data\">\r\n \r\n    <fieldset>\r\n  \r\n      <label for=\"subject\">Attachment smethod=\"post\"<label>\r\n      <input name=\"file\" type=\"file\" placeholder=\"Password\">\r\n      <button class=\"pure-button pure-button-primary\">Send</button>\r\n    </fieldset>\r\n  </form>-->\r\n\r\n</template>\r\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n     <!--height: 200px;\r\n        img {\r\n      max-width: 200px;\r\n      height: auto;\r\n   \r\n    }-->\r\n    <!--max-height:95px;-->\r\n  <style>\r\n \r\n\r\nimg {\r\n  display: block;\r\n  max-width:200px;\r\n  max-height:200px;\r\n  width: auto;\r\n  height: auto;\r\n}\r\n\r\n\r\n    \r\n  </style>\r\n  <require from=\"./BlobToUrlValueConverter\"></require>\r\n  <require from=\"./FileListToArrayValueConverter\"></require>\r\n    <!--<require from=\"./date-format\"></require>-->\r\n  <!--must use name=file as that's what backend is expecting with multer' -->\r\n  <h1> Aurelia Upload Demo with Trails Backend ${upmess} </h1>\r\n  <form submit.delegate=\"submit(file)\">\r\n    <input type=\"file\" name=\"file\" files.bind=\"file\" multiple>\r\n    <button type=\"submit\">Upload files</button>\r\n\r\n  </form>\r\n\r\n\r\n  <div class=\"row\">\r\n\r\n    <ul>\r\n      <li repeat.for=\"onefile of file | fileListToArray\">\r\n\r\n        <div class=\"col s3\">\r\n          <p>${onefile.name}: ${onefile.type} ${onefile.size / 1000} kb</p>\r\n          <img src.bind=\"onefile | blobToUrl\"><img>\r\n          <!--<p>-modified:${file.lastModifiedDate| date:'year' }-</p>-->\r\n          <!--<p>Last Modified: ${file.lastModifiedDate| dateFormat:'year' } </p></div>\r\n                    <br>-->\r\n        </div>\r\n\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

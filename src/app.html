@@ -1,39 +1,54 @@
 <template>
-  <h1> Upload demo  ${upmess} </h1>
+     <!--height: 200px;
+        img {
+      max-width: 200px;
+      height: auto;
+   
+    }-->
+    <!--max-height:95px;-->
+  <style>
+ 
+
+img {
+  display: block;
+  max-width:200px;
+  max-height:200px;
+  width: auto;
+  height: auto;
+}
+
+
+    
+  </style>
+  <require from="./BlobToUrlValueConverter"></require>
+  <require from="./FileListToArrayValueConverter"></require>
+    <!--<require from="./date-format"></require>-->
+  <!--must use name=file as that's what backend is expecting with multer' -->
+  <h1> Aurelia Upload Demo with Trails Backend ${upmess} </h1>
   <form submit.delegate="submit(file)">
     <input type="file" name="file" files.bind="file" multiple>
-    <button type="submit">Send  via code</button>
-   
-  </form>
+    <button type="submit">Upload files</button>
 
-  <!--<form submit.delegate="submit(file)">
-    <input type="file" name="images" files.bind="images" multiple>
-    <button type="submit">Send  via code</button>
-  </form>-->
-
-
-  <!-- /////////////////////////////////////  -->
-
-  <!--<form class="pure-form pure-form-stacked" action="http://localhost:8880/api/v1/uploadcsv" method="post" enctype="multipart/form-data">-->
-     <!--<form class="pure-form pure-form-stacked" action="http://localhost:3000/attachments" method="post" enctype="multipart/form-data">
- 
-    <fieldset>
-  
-      <label for="subject">Attachment smethod="post"<label>
-      <input name="file" type="file" placeholder="Password">
-      <button class="pure-button pure-button-primary">Send</button>
-    </fieldset>
   </form>
 
 
-   <form class="pure-form pure-form-stacked" action="http://localhost:3000/attachments" method="post" enctype="multipart/form-data">
- 
-    <fieldset>
-  
-      <label for="subject">Attachment smethod="post"<label>
-      <input name="file" type="file" placeholder="Password">
-      <button class="pure-button pure-button-primary">Send</button>
-    </fieldset>
-  </form>-->
+  <div class="row">
+
+    <ul>
+      <li repeat.for="onefile of file | fileListToArray">
+
+        <div class="col s3">
+          <p>${onefile.name}: ${onefile.type} ${onefile.size / 1000} kb</p>
+          <img src.bind="onefile | blobToUrl"><img>
+          <!--<p>-modified:${file.lastModifiedDate| date:'year' }-</p>-->
+          <!--<p>Last Modified: ${file.lastModifiedDate| dateFormat:'year' } </p></div>
+                    <br>-->
+        </div>
+
+      </li>
+
+    </ul>
+
+  </div>
 
 </template>
