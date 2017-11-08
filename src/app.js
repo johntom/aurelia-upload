@@ -28,10 +28,10 @@ export class App {
     // this uses policy
     // upload uses just a controller  
     this.http.fetch('upload', {
-        mode: 'cors',
-        method: 'POST',
-        body: formData
-      })
+      mode: 'cors',
+      method: 'POST',
+      body: formData
+    })
       .then(response => response.json())
       .then(data => {
         console.log(data.message)
@@ -40,8 +40,41 @@ export class App {
       })
       .catch(error => console.log(error));
 
+    // http://localhost:3000/api/v1/getdir
+    // http://localhost:3000/api/v1/getfile/3899.pdf
+
+ this.http.fetch('api/v1/getdir', {
+      mode: 'cors',
+      method: 'get'
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.data)
+        this.files = data.data
+        console.log('this.files', this.files)
+      })
+      .catch(error => console.log(error));
+
+
 
   }
+
+  activate() {
+    this.http.fetch('api/v1/getdir', {
+      mode: 'cors',
+      method: 'get'
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.data)
+        this.files = data.data
+        console.log('this.files', this.files)
+      })
+      .catch(error => console.log(error));
+
+  }
+
+
 
   // submitWithHttp(images) {
   //     let formData = new FormData();

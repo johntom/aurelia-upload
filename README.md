@@ -8,6 +8,7 @@ use of selected files with fetch
 
 ## from command prompt
 1. npm install
+npm install aurelia-cli -g
 2. au run
 3. paste http://localhost:9000/ in browser 
 4. install server 

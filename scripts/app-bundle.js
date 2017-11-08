@@ -48,6 +48,36 @@ define('app',['exports', 'aurelia-framework', 'aurelia-fetch-client'], function 
       }).catch(function (error) {
         return console.log(error);
       });
+
+      this.http.fetch('api/v1/getdir', {
+        mode: 'cors',
+        method: 'get'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.data);
+        _this.files = data.data;
+        console.log('this.files', _this.files);
+      }).catch(function (error) {
+        return console.log(error);
+      });
+    };
+
+    App.prototype.activate = function activate() {
+      var _this2 = this;
+
+      this.http.fetch('api/v1/getdir', {
+        mode: 'cors',
+        method: 'get'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data.data);
+        _this2.files = data.data;
+        console.log('this.files', _this2.files);
+      }).catch(function (error) {
+        return console.log(error);
+      });
     };
 
     return App;
@@ -171,5 +201,5 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n     <!--height: 200px;\r\n        img {\r\n      max-width: 200px;\r\n      height: auto;\r\n   \r\n    }-->\r\n    <!--max-height:95px;-->\r\n  <style>\r\n \r\n\r\nimg {\r\n  display: block;\r\n  max-width:200px;\r\n  max-height:200px;\r\n  width: auto;\r\n  height: auto;\r\n}\r\n\r\n\r\n    \r\n  </style>\r\n  <require from=\"./BlobToUrlValueConverter\"></require>\r\n  <require from=\"./FileListToArrayValueConverter\"></require>\r\n    <!--<require from=\"./date-format\"></require>-->\r\n  <!--must use name=file as that's what backend is expecting with multer' -->\r\n  <h1> Aurelia Upload Demo with Trails Backend ${upmess} </h1>\r\n  <form submit.delegate=\"submit(file)\">\r\n    <input type=\"file\" name=\"file\" files.bind=\"file\" multiple>\r\n    <button type=\"submit\">Upload files</button>\r\n\r\n  </form>\r\n\r\n\r\n  <div class=\"row\">\r\n\r\n    <ul>\r\n      <li repeat.for=\"onefile of file | fileListToArray\">\r\n\r\n        <div class=\"col s3\">\r\n          <p>${onefile.name}: ${onefile.type} ${onefile.size / 1000} kb</p>\r\n          <img src.bind=\"onefile | blobToUrl\"><img>\r\n          <!--<p>-modified:${file.lastModifiedDate| date:'year' }-</p>-->\r\n          <!--<p>Last Modified: ${file.lastModifiedDate| dateFormat:'year' } </p></div>\r\n                    <br>-->\r\n        </div>\r\n\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n\r\n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\r\n     <!--height: 200px;\r\n        img {\r\n      max-width: 200px;\r\n      height: auto;\r\n   \r\n    }-->\r\n    <!--max-height:95px;-->\r\n  <style>\r\n \r\n\r\nimg {\r\n  display: block;\r\n  max-width:200px;\r\n  max-height:200px;\r\n  width: auto;\r\n  height: auto;\r\n}\r\n\r\n\r\n    \r\n  </style>\r\n  <require from=\"./BlobToUrlValueConverter\"></require>\r\n  <require from=\"./FileListToArrayValueConverter\"></require>\r\n    <!--<require from=\"./date-format\"></require>-->\r\n  <!--must use name=file as that's what backend is expecting with multer' -->\r\n  <h1> Aurelia Upload Demo with Trails Backend ${upmess} </h1>\r\n  <form submit.delegate=\"submit(file)\">\r\n    <input type=\"file\" name=\"file\" files.bind=\"file\" multiple>\r\n    <button type=\"submit\">Upload files</button>\r\n\r\n  </form>\r\n\r\n\r\n  <div class=\"row\">\r\n\r\n    <ul>\r\n      <li repeat.for=\"onefile of file | fileListToArray\">\r\n\r\n        <div class=\"col s3\">\r\n          <p>${onefile.name}: ${onefile.type} ${onefile.size / 1000} kb</p>\r\n          <img src.bind=\"onefile | blobToUrl\"><img>\r\n          <!--<p>-modified:${file.lastModifiedDate| date:'year' }-</p>-->\r\n          <!--<p>Last Modified: ${file.lastModifiedDate| dateFormat:'year' } </p></div>\r\n                    <br>-->\r\n        </div>\r\n\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n\r\n\r\n  <div class=\"row\">\r\n\r\n    <ul>\r\n      <li repeat.for=\"file of files\">\r\n\r\n        <div class=\"col s6\">\r\n          <p><a target='_blank' href ='http://localhost:3000/api/v1/getfile/${file.url}'> ${file.url}</a>   </p>\r\n   \r\n        </div>\r\n\r\n      </li>\r\n\r\n    </ul>\r\n\r\n  </div>\r\n\r\n\r\n\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

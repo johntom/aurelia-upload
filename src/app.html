@@ -51,4 +51,23 @@ img {
 
   </div>
 
+
+  <div class="row">
+
+    <ul>
+      <li repeat.for="file of files">
+
+        <div class="col s6">
+          <p><a target='_blank' href ='http://localhost:3000/api/v1/getfile/${file.url}'> ${file.url}</a>   </p>
+   
+        </div>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+
+
 </template>
